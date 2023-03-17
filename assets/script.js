@@ -21,55 +21,11 @@ const slides = [
 // target BANNER element in DOM
 const banner = document.querySelector("#banner");
 // =======
+
 // target ARROWS elements in DOM
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 // =======
-
-// create and add bullet CONTAINER
-const bulletSection = document.createElement("div");
-bulletSection.classList.add("dots");
-banner.appendChild(bulletSection);
-
-// create and add bullet ELEMENT
-slides.forEach((v, index) => {
-  const bullet = document.createElement("span");
-  bullet.classList.add("dot");
-  bulletSection.appendChild(bullet);
-
-  // set first bullet as selected
-  if (index === 0) {
-    bullet.classList.add("dot_selected");
-  }
-});
-
-const replaceImg = (section, index) => {
-  section.querySelector(".banner-img").src =
-    "/assets/images/slideshow/" + slides[index].image;
-};
-
-// sync bullets with displayed banner image
-const hightlightBullet = (table, index) => {
-  console.log(index);
-  table.forEach((elem, i) => {
-    if (index === i) {
-      elem.classList.add("dot_selected");
-    } else {
-      elem.classList.remove("dot_selected");
-    }
-  });
-};
-
-// target bullets elements from DOM
-const dots = document.querySelectorAll(".dot");
-
-// do change img with selected one + hightlight bullet
-dots.forEach((elem, index) => {
-  elem.addEventListener("click", () => {
-    replaceImg(banner, index);
-    hightlightBullet(dots, index);
-  });
-});
 
 // ARROWS click funcs
 
@@ -108,3 +64,60 @@ arrowRight.addEventListener("click", () => {
   }
 });
 // =======
+
+// create and add bullet CONTAINER
+const bulletSection = document.createElement("div");
+bulletSection.classList.add("dots");
+banner.appendChild(bulletSection);
+
+// create and add bullet ELEMENT
+slides.forEach((v, index) => {
+  const bullet = document.createElement("span");
+  bullet.classList.add("dot");
+  bulletSection.appendChild(bullet);
+
+  // set first bullet as selected
+  if (index === 0) {
+    bullet.classList.add("dot_selected");
+  }
+});
+
+// target bullets elements from DOM
+const dots = document.querySelectorAll(".dot");
+
+// do change img with selected one + hightlight bullet
+dots.forEach((elem, index) => {
+  elem.addEventListener("click", () => {
+    replaceImg(banner, index);
+    hightlightBullet(dots, index);
+  });
+});
+
+// Functions
+/**
+ * Set up image with given index
+ * @param {HTMLElement} section
+ * @param {number} index
+ */
+const replaceImg = (section, index) => {
+  section.querySelector(".banner-img").src =
+    "/assets/images/slideshow/" + slides[index].image;
+
+  // replace text section
+  section.querySelector("p").innerHTML = slides[index].tagLine;
+};
+
+/**
+ * Syncronize bullets with displayed banner image
+ * @param {Array} table
+ * @param {number} index
+ */
+const hightlightBullet = (table, index) => {
+  table.forEach((elem, i) => {
+    if (index === i) {
+      elem.classList.add("dot_selected");
+    } else {
+      elem.classList.remove("dot_selected");
+    }
+  });
+};
