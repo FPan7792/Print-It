@@ -50,6 +50,7 @@ const replaceImg = (section, index) => {
 
 // sync bullets with displayed banner image
 const hightlightBullet = (table, index) => {
+  console.log(index);
   table.forEach((elem, i) => {
     if (index === i) {
       elem.classList.add("dot_selected");
@@ -84,6 +85,9 @@ arrowLeft.addEventListener("click", () => {
   if (!currentImage.src.includes(slides[0].image)) {
     replaceImg(banner, target - 1);
     hightlightBullet(dotsBox, target - 1);
+  } else {
+    replaceImg(banner, slides.length - 1);
+    hightlightBullet(dotsBox, slides.length - 1);
   }
 });
 
@@ -98,6 +102,9 @@ arrowRight.addEventListener("click", () => {
   if (!currentImage.src.includes(slides[slides.length - 1].image)) {
     replaceImg(banner, target + 1);
     hightlightBullet(dotsBox, target + 1);
+  } else {
+    replaceImg(banner, 0);
+    hightlightBullet(dotsBox, 0);
   }
 });
 // =======
